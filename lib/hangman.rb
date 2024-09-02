@@ -19,8 +19,6 @@ class Game
     # if @word.length < 5
     #   @word =  File.readlines("google-10000-english-no-swears.txt").sample
     else
-    puts ""
-    puts "the computer chose:\n#{@word}"
     @guess_word = @word.gsub(/\S/, '_')
     puts ""
     puts "the current guess is:\n#{@guess_word}"
@@ -84,19 +82,22 @@ class Game
     else
     @turn_count += 1
     puts ""
+    puts "you have used #{@turn_count}/15 turns"
+    puts @guess_word
     puts "guess a letter:"
-    @user_guess = gets.chomp
+    @user_guess = gets.chomp[0]
     end
     garbage_collect
   end
 
     def garbage_collect
       if @letter_guesses.include?(@user_guess)
-        puts 'thats already been guessed.'
+        puts 'thats already been guessed. try again.'
+        guess_letter
       else
         @letter_guesses.append(@user_guess)
+        word_crunch
       end
-      word_crunch
     end
 
 
@@ -108,21 +109,19 @@ class Game
   else
       puts ""
       puts "you guessed incorrect!"
-      guess_letter
+      save
     end
   end
 
   def guessword_crunch
     index = @word.chars.each_with_index.select { |c, i| c == @user_guess }.map(&:last)
-    puts index
-    
     index.each_with_index {|o, i| @guess_word[o] = @user_guess}
     puts @guess_word
     save
   end
 
   def save
-    puts "save game? (Y/N)"
+    puts "press 'Y' to save, any key to continue"
     start = ""
     start = gets.upcase.chomp
     if start == "Y"
@@ -134,10 +133,13 @@ class Game
 
   def win
     puts "you won."
+    Game.new
+
   end
 
   def lose
     puts "you lost."
+    Game.new
   end
 
 end

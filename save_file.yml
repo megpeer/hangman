@@ -1,22 +1,21 @@
 ---
-:word: 'edition
+:word: 'volt
 
   '
-:guess_word: 'edition
+:guess_word: '_olt
 
   '
-:turn_count: 15
+:turn_count: 12
 :letter_guesses:
-- e
 - a
+- e
 - i
 - o
-- l
-- s
-- g
-- c
-- b
-- ''
-- d
+- u
 - t
+- f
+- "y"
+- g
 - "n"
+- k
+- l
